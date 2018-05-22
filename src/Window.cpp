@@ -8,6 +8,7 @@
 
 
 GLFWwindow* Window::_window;
+Application Window::_application;
 
 
 void Window::create(const uintl16& w, const uintl16& h, const char* title, const bool& fullscreen)
@@ -39,7 +40,7 @@ void Window::create(const uintl16& w, const uintl16& h, const char* title, const
 #endif
     glfwSwapInterval(1);
 
-    Application::init();
+    _application.init();
     Input::init(_window);
 }
 
@@ -56,7 +57,7 @@ void Window::update()
 
         Input::process();
 
-        Application::render();
+        _application.render();
 
         /*
         glBegin(GL_TRIANGLES);

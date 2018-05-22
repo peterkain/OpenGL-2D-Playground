@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "IntTypes.h"
+#include "types/IntTypes.h"
 
 #include <GLFW/glfw3.h>
 #include <memory>

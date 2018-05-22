@@ -1,5 +1,7 @@
 #include "ShaderProgram.h"
 #include "ErrorCodes.h"
+#include "math/Vector4.h"
+#include "math/Matrix4x4.h"
 
 #include <iostream>
 #include <vector>
@@ -12,7 +14,6 @@ ShaderProgram::ShaderProgram()
 {
     _program = glCreateProgram();
 }
-
 
 
 void ShaderProgram::create(const ShaderSource& shader)
@@ -40,6 +41,20 @@ void ShaderProgram::create(const ShaderSource& shader)
 
     glLinkProgram(_program);
     check_for_errors(_program, 'p');
+}
+
+
+void ShaderProgram::set_vec4(const GLuint& program, conststr& name, const Vector4& v)
+{
+    GLint location = glGetUniformLocation(program, name.c_str());
+    glUniform4f(location, v.x, v.y, v.z, v.w);
+}
+
+
+void ShaderProgram::set_mat4(const GLuint& program, conststr& name, const Matrix4x4& v)
+{
+    GLint location = glGetUniformLocation(program, name.c_str());
+    glUniformMatrix4fv(location, 1, GL_FALSE, &v.data[0]);
 }
 
 

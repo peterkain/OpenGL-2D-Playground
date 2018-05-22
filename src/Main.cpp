@@ -1,13 +1,13 @@
 #include "Window.h"
-#include "IntTypes.h"
+#include "types/IntTypes.h"
 #include "GlobalDefs.h"
 #include "Timer.h"
 
 #include <iostream>
 
 
-constexpr uintl16 WIDTH     {800};
-constexpr uintl16 HEIGHT    {600};
+constexpr uintl16 WIDTH     {960};
+constexpr uintl16 HEIGHT    {540};
 constexpr char TITLE []     {"OpenGL 2D Playground"};
 constexpr bool FULLSCREEN   {false};
 

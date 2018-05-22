@@ -1,7 +1,7 @@
 #pragma once
 
-#include "StringTypes.h"
-#include "IntTypes.h"
+#include "types/StringTypes.h"
+#include "types/IntTypes.h"
 
 #include <map>
 

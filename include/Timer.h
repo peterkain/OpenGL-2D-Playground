@@ -1,7 +1,7 @@
 #pragma once
 
-#include "StringTypes.h"
-#include "ChronoTypes.h"
+#include "types/StringTypes.h"
+#include "types/ChronoTypes.h"
 
 #include <chrono>
 

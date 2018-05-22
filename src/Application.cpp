@@ -2,14 +2,18 @@
 #include "ShaderProgram.h"
 #include "BasicRenderer.h"
 
+#include "math/Convert.h"
 
-std::unordered_map<std::string, GLuint> Application::_programs;
+#include <GLFW/glfw3.h>
 
 
-void Application::init()
+Application::Application()
 {
-    BasicRenderer::init();
+}
 
+
+void Application::init_shaders()
+{
     ShaderProgram sp_default;
 
     sp_default.create(ShaderFile::parse_shader("data/shaders/Default.glsl"));
@@ -18,9 +22,27 @@ void Application::init()
 }
 
 
+void Application::load_levels()
+{
+    _levels[0] = {"data/levels/test.lvl"};
+    _curr_lvl = _levels.size() - 1;
+}
+
+
+void Application::init()
+{
+    BasicRenderer::init();
+    init_shaders();
+    load_levels();
+}
+
+
 void Application::render()
 {
-    BasicRenderer::draw_rect(_programs["default"], {0, 0}, {0, 0}, {0, 0}, {0, 0, 0, 1});
+    // Next up: Implementing SpriteBatching
+    for(intf8 j {0}; j < 33; ++j)
+        for(intf8 i {0}; i < 59; ++i)
+            BasicRenderer::draw_rect(_programs["default"], {i * 16.0f + 16.0f, j * 16.0f + 16.0f}, glfwGetTime() * 2, {0, 1}, {16, 16}, {1, 0.5, 0, 1});
 }
 
 
