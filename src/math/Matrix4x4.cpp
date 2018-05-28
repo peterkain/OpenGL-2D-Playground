@@ -18,7 +18,7 @@ namespace Matrix
         GLfloat c { cos(a) };
         GLfloat s { sin(a) };
         GLfloat t {1.0f - c};
-        
+
         return  {x * x * t + c,     y * x * t + z * s, x * z * t - y * s, 0,
                  x * y * t - z * s, y * y * t + c,     y * z * t + x * s, 0,
                  x * z * t + y * s, y * z * t - x * s, z * z * t + c,     0,
@@ -35,7 +35,7 @@ namespace Matrix
     }
 
 
-    Matrix4x4 orthographic(const GLfloat& l, const GLfloat& r, const GLfloat& t, const GLfloat& b, const GLfloat& n, const GLfloat& f)
+    Matrix4x4 orthographic(const GLfloat& l, const GLfloat& r, const GLfloat& t, const GLfloat& b, const GLfloat& f, const GLfloat& n)
     {
         return  {2 / (r - l), 0,           0,           -(r + l) / (r - l),
                  0,           2 / (t - b), 0,           -(t + b) / (t - b),

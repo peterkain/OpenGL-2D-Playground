@@ -4,6 +4,7 @@
 
 #include <array>
 #include <GL/glew.h>
+#include <cmath>
 
 
 struct Vector3

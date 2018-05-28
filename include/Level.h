@@ -5,6 +5,8 @@
 
 #include <vector>
 
+#include <GL/glew.h>
+
 class Level
 {
 public:
@@ -12,8 +14,13 @@ public:
     Level(conststr& path);
     ~Level();
 
+    void render(const GLuint& program, const uintl16& w, const uintl16& h);
+    void set_level(conststr& path);
+
 private:
-    std::vector<uintl8> _data;
-    uintl64 _line_length;
+    std::vector<uintl16> _data;
+    uintl32 _line_length;
+    uintf64 _xoffset;
+    uintf64 _yoffset;
 };
 

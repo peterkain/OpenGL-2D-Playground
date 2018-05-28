@@ -72,7 +72,7 @@ void check_for_errors(const GLuint& id, const char& type)
                       : glGetShaderiv(id, GL_INFO_LOG_LENGTH, &log_length);
 
         std::vector<GLchar> info_log (log_length);
-        (type == 'p') ? glGetProgramInfoLog (id, log_length, &log_length, &info_log[0]) 
+        (type == 'p') ? glGetProgramInfoLog (id, log_length, &log_length, &info_log[0])
                       : glGetShaderInfoLog  (id, log_length, &log_length, &info_log[0]);
 
         std::cout << std::string { info_log.begin(), info_log.end() } << "\n";

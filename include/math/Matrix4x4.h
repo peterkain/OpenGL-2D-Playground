@@ -6,6 +6,7 @@
 #include <array>
 #include <GL/glew.h>
 #include <iostream>
+#include <cstring>
 
 
 struct Matrix4x4;
@@ -16,7 +17,7 @@ namespace Matrix
     extern Matrix4x4 rotation(const GLfloat& angle, const GLfloat& x, const GLfloat& y, const GLfloat& z);
     extern Matrix4x4 scale(const GLfloat& scale_x, const GLfloat& scale_y, const GLfloat& scale_z);
 
-    extern Matrix4x4 orthographic(const GLfloat& l, const GLfloat& r, const GLfloat& t, const GLfloat& b, const GLfloat& n, const GLfloat& f);
+    extern Matrix4x4 orthographic(const GLfloat& l, const GLfloat& r, const GLfloat& t, const GLfloat& b, const GLfloat& f, const GLfloat& n);
 }
 
 
@@ -45,10 +46,7 @@ struct Matrix4x4
                     x14, x24, x34, x44;
         };
 
-        struct
-        {
-            std::array<Vector4, 4> grid;
-        };
+        std::array<Vector4, 4> grid;
     };
 
 
@@ -88,6 +86,7 @@ struct Matrix4x4
     friend Matrix4x4 operator*(Matrix4x4& m, const float& f)
     {
         for(auto& d : m.data) d *= f;
+        return m;
     }
 
     friend Matrix4x4 operator*(const Matrix4x4& l, const Matrix4x4& r)

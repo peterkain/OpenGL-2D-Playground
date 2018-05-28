@@ -17,6 +17,7 @@ public:
     void init();
     void render();
     void quit();
+    void update_dimensions(const uintl16& w, const uintl16& h);
 
 private:
     void init_shaders();
@@ -27,5 +28,7 @@ private:
     std::unordered_map<uintl16, Level> _levels;
 
     uintl16 _curr_lvl;
+    uintl16 _w;
+    uintl16 _h;
 };
 

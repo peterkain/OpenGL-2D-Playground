@@ -1,6 +1,7 @@
 #pragma once
 
 #include "math/Vector2.h"
+#include "math/Vector3.h"
 #include "math/Vector4.h"
 #include "types/IntTypes.h"
 
@@ -21,11 +22,10 @@ public:
     BasicRenderer() = delete;
 
     static void init();
-    static void draw_rect(const GLuint& program, const Vector2& pos, const GLfloat& angle, const Vector2& rotation, const Vector2& scale, const Vector4& color);
+    static void draw_rect(const GLuint& program, const Vector2& pos, const GLfloat& angle, const Vector3& rotation, const Vector2& scale, const Vector4& color);
+    static void update_proj(const uintl16& w, const uintl16& h);
 
 private:
-    // static std::unique_ptr<GLuint> _vaos;
-
     static GLuint _vao;
     static std::array<GLuint, 2> _buffers;
 

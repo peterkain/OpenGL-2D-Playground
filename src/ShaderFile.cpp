@@ -10,7 +10,7 @@ namespace ShaderFile
     ShaderSource parse_shader(conststr& path)
     {
         ShaderSource ret;
-        std::string line;
+        std::string line = "";
         uintl8 curr = VERTEX;
 
         std::ifstream file {path};
@@ -22,9 +22,9 @@ namespace ShaderFile
 
         while(std::getline(file, line))
         {
-            if(line == "#shadertype vertex")        curr = VERTEX;
-            else if(line == "#shadertype fragment") curr = FRAGMENT;
-            else ret.sources[curr] += line + '\n';
+            if(line.find("#shadertype vertex") != std::string::npos) curr = VERTEX;
+            else if(line.find("#shadertype fragment") != std::string::npos) curr = FRAGMENT;
+            else ret.sources[curr] += (line + '\n');
         }
 
         return ret;

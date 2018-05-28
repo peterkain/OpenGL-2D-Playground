@@ -5,10 +5,19 @@
 #include "math/Convert.h"
 
 #include <GLFW/glfw3.h>
+#include <iostream>
 
 
 Application::Application()
 {
+}
+
+
+void Application::update_dimensions(const uintl16& w, const uintl16& h)
+{
+    _w = w;
+    _h = h;
+    BasicRenderer::update_proj(_w, _h);
 }
 
 
@@ -24,7 +33,7 @@ void Application::init_shaders()
 
 void Application::load_levels()
 {
-    _levels[0] = {"data/levels/test.lvl"};
+    _levels[0] = {"data/levels/DebugFeatureTest.lvl"};
     _curr_lvl = _levels.size() - 1;
 }
 
@@ -39,10 +48,8 @@ void Application::init()
 
 void Application::render()
 {
-    // Next up: Implementing SpriteBatching
-    for(intf8 j {0}; j < 33; ++j)
-        for(intf8 i {0}; i < 59; ++i)
-            BasicRenderer::draw_rect(_programs["default"], {i * 16.0f + 16.0f, j * 16.0f + 16.0f}, glfwGetTime() * 2, {0, 1}, {16, 16}, {1, 0.5, 0, 1});
+    //BasicRenderer::draw_rect(_programs["default"], {64.0f, 64.0f}, 0, {0, 0}, {16, 16}, {1, 0.7, 0, 1});
+    _levels[_curr_lvl].render(_programs["default"], _w, _h);
 }
 
 

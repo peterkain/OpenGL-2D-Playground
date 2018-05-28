@@ -12,16 +12,12 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-// std::unique_ptr<GLuint> BasicRenderer::_vaos {new GLuint[2]};
-// std::unique_ptr<GLuint> BasicRenderer::_vbos;
-// std::unique_ptr<GLuint> BasicRenderer::_ebos;
-
 GLuint BasicRenderer::_vao;
 std::array<GLuint, 2> BasicRenderer::_buffers;
-Matrix4x4 BasicRenderer::_projection = Matrix::orthographic(0, 960, 0, 540, -5, 5);
+Matrix4x4 BasicRenderer::_projection = Matrix::orthographic(0, 960, 0, 540, 5, -5);
 
 
-const std::array<GLfloat, 8> QUAD_VERTEX_POSITIONS = 
+const std::array<GLfloat, 8> QUAD_VERTEX_POSITIONS =
 {
      1.0f,  1.0f,
      1.0f, -1.0f,
@@ -56,18 +52,22 @@ void BasicRenderer::init()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glBindVertexArray(0);
-
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 
-void BasicRenderer::draw_rect(const GLuint& program, const Vector2& pos, const GLfloat& angle, const Vector2& rotation, const Vector2& scale, const Vector4& color)
+void BasicRenderer::update_proj(const uintl16& w, const uintl16& h)
+{
+    _projection = Matrix::orthographic(0, w, 0, h, 5, -5);
+}
+
+
+void BasicRenderer::draw_rect(const GLuint& program, const Vector2& pos, const GLfloat& angle, const Vector3& rotation, const Vector2& scale, const Vector4& color)
 {
     glUseProgram(program);
 
     Matrix4x4 model {1.0f};
-    model.translate_by(pos.x, pos.y, 0.0f);
-    model.rotate_by(angle, rotation.x, rotation.y, 0);
+    model.translate_by(pos.x + scale.x, pos.y + scale.y, 0.0f);
+    model.rotate_by(angle, rotation.x, rotation.y, rotation.z);
     model.scale_by(scale.x, scale.y, 1);
 
 

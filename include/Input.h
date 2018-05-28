@@ -21,6 +21,7 @@ private:
 
 private:
     static std::unique_ptr<uintl8> _keys;
+    static bool _wireframe;
 };
 
 #endif
