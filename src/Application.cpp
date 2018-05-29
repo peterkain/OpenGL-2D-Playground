@@ -50,6 +50,7 @@ void Application::render()
 {
     //BasicRenderer::draw_rect(_programs["default"], {64.0f, 64.0f}, 0, {0, 0}, {16, 16}, {1, 0.7, 0, 1});
     _levels[_curr_lvl].render(_programs["default"], _w, _h);
+    _levels[_curr_lvl].render_entities(_programs["default"]);
 }
 
 

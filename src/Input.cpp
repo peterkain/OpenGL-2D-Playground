@@ -6,6 +6,7 @@
 
 std::unique_ptr<uintl8> Input::_keys {new uintl8[128]};
 bool Input::_wireframe {false};
+Camera Input::_camera;
 
 
 void Input::init(GLFWwindow* window)
@@ -16,6 +17,10 @@ void Input::init(GLFWwindow* window)
 
 void Input::process()
 {
+    if(_keys.get()[GLFW_KEY_D])
+        _camera.move_right();
+    if(_keys.get()[GLFW_KEY_A])
+        _camera.move_left();
 }
 
 

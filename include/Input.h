@@ -4,6 +4,7 @@
 #pragma once
 
 #include "types/IntTypes.h"
+#include "Camera.h"
 
 #include <GLFW/glfw3.h>
 #include <memory>
@@ -15,6 +16,8 @@ public:
 
     static void init(GLFWwindow* window);
     static void process();
+
+    static Camera _camera;
 
 private:
     static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);

@@ -2,6 +2,7 @@
 #include "types/IntTypes.h"
 #include "ShaderProgram.h"
 #include "math/Matrix4x4.h"
+#include "Input.h"
 
 #include <array>
 #include <iostream>
@@ -70,13 +71,9 @@ void BasicRenderer::draw_rect(const GLuint& program, const Vector2& pos, const G
     model.rotate_by(angle, rotation.x, rotation.y, rotation.z);
     model.scale_by(scale.x, scale.y, 1);
 
-
-    Matrix4x4 view {1.0f};
-    view.translate_by(0.0f, 0.0f, 0.0f);
-
     Matrix4x4 mvp {1.0f};
     mvp *= _projection;
-    mvp *= view;
+    mvp *= *Input::_camera.get_view_matrix();
     mvp *= model;
 
     ShaderProgram::set_vec4(program, "u_color", color);
