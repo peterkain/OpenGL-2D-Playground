@@ -15,7 +15,7 @@ public:
     Application();
 
     void init();
-    void render();
+    void process();
     void quit();
     void update_dimensions(const uintl16& w, const uintl16& h);
 

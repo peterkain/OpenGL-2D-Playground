@@ -46,8 +46,8 @@ void Window::create(const uintl16& w, const uintl16& h, const char* title, const
 #endif
     glfwSwapInterval(1);
 
-    _application.init();
     _application.update_dimensions(w, h);
+    _application.init();
     Input::init(_window);
 
     glfwSetWindowSizeCallback(_window, resize_callback);
@@ -64,9 +64,7 @@ void Window::update()
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        Input::process();
-
-        _application.render();
+        _application.process();
 
         /*
         glBegin(GL_TRIANGLES);

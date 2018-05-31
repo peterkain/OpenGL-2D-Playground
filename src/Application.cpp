@@ -33,7 +33,8 @@ void Application::init_shaders()
 
 void Application::load_levels()
 {
-    _levels[0] = {"data/levels/DebugFeatureTest.lvl"};
+    _levels[0].set_level("data/levels/DebugFeatureTest.lvl");
+    _levels[0].set_height(_h);
     _curr_lvl = _levels.size() - 1;
 }
 
@@ -46,11 +47,11 @@ void Application::init()
 }
 
 
-void Application::render()
+void Application::process()
 {
     //BasicRenderer::draw_rect(_programs["default"], {64.0f, 64.0f}, 0, {0, 0}, {16, 16}, {1, 0.7, 0, 1});
-    _levels[_curr_lvl].render(_programs["default"], _w, _h);
-    _levels[_curr_lvl].render_entities(_programs["default"]);
+    _levels[_curr_lvl].render(_programs["default"]);
+    _levels[_curr_lvl].process_entities(_programs["default"]);
 }
 
 

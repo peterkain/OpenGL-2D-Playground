@@ -17,14 +17,16 @@ public:
     static void init(GLFWwindow* window);
     static void process();
 
+    static uintl8* keys();
+
     static Camera _camera;
 
 private:
     static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 private:
-    static std::unique_ptr<uintl8> _keys;
     static bool _wireframe;
+    static std::unique_ptr<uintl8> _keys;
 };
 
 #endif
