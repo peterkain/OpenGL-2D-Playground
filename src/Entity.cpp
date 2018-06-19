@@ -15,6 +15,15 @@ Entity::Entity(const Vector3& pos, const GLfloat& angle, const Vector3& rotation
 }
 
 
+bool Entity::collides(const Entity& o)
+{
+    if(_pos.x < o._pos.x + o._size.x && _pos.x + _size.x > o._pos.x &&
+       _pos.y < o._pos.y + o._size.y && _pos.y + _size.y > o._pos.y)
+       return true;
+    else return false;
+}
+
+
 void Entity::update()
 {
     _pos.x += _vel.x;

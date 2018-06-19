@@ -34,7 +34,6 @@ void Application::init_shaders()
 void Application::load_levels()
 {
     _levels[0].set_level("data/levels/DebugFeatureTest.lvl");
-    _levels[0].set_height(_h);
     _curr_lvl = _levels.size() - 1;
 }
 

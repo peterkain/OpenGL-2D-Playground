@@ -7,6 +7,8 @@
 #include "types/IntTypes.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Coin.h"
+#include "Booster.h"
 
 #include <vector>
 #include <memory>
@@ -23,12 +25,13 @@ public:
     void render(const GLuint& program);
     void process_entities(const GLuint& program);
     void set_level(conststr& path);
-    void set_height(const uintl16& h);
     uintl16 get_tile(const Vector2& pos) const;
 
 private:
     std::vector<uintl16> _data;
     std::vector<Entity> _entities;
+    std::vector<Booster> _boosters;
+    std::vector<Coin> _coins;
     std::unique_ptr<Player> _player;
 
     uintl32 _line_length;

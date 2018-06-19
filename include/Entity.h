@@ -16,15 +16,14 @@ public:
 
     void update();
     void render(const GLuint& program);
+    bool collides(const Entity& o);
 
-protected:
-    float _angle;
-
-    Vector4 _color;
     Vector3 _pos;
+    float _angle;
     Vector3 _rotation;
     Vector2 _size;
     Vector2 _vel;
+    Vector4 _color;
 };
 
 

@@ -73,7 +73,7 @@ void BasicRenderer::draw_rect(const GLuint& program, const Vector2& pos, const G
 
     Matrix4x4 mvp {1.0f};
     mvp *= _projection;
-    mvp *= *Input::_camera.get_view_matrix();
+    mvp *= *Input::camera.get_view_matrix();
     mvp *= model;
 
     ShaderProgram::set_vec4(program, "u_color", color);

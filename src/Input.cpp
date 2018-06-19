@@ -6,7 +6,7 @@
 
 std::unique_ptr<uintl8> Input::_keys {new uintl8[128] {false}};
 bool Input::_wireframe {false};
-Camera Input::_camera;
+Camera Input::camera;
 
 
 void Input::init(GLFWwindow* window)

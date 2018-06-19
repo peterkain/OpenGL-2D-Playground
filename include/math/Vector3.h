@@ -6,6 +6,8 @@
 #include <GL/glew.h>
 #include <cmath>
 
+#include "math/Vector2.h"
+
 
 struct Vector3
 {
@@ -29,6 +31,11 @@ struct Vector3
         x /= l;
         y /= l;
         z /= l;
+    }
+
+    Vector2 xy()
+    {
+        return Vector2(x, y);
     }
 
     GLfloat length()

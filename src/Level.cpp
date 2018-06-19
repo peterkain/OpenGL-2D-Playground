@@ -34,10 +34,15 @@ Level::~Level()
 
 void Level::set_level(conststr& path)
 {
+    _entities.clear();
+    _boosters.clear();
+    _coins.clear();
+    _player.release();
+
     std::ifstream file {path};
     std::string line;
     bool parse_lang {false};
-    file >> _line_length;
+    file >> _line_length >> X_SIZE >> Y_SIZE;
     while(std::getline(file, line))
     {
         std::istringstream iss {line};
@@ -55,7 +60,7 @@ void Level::set_level(conststr& path)
             {
                 std::string type;
                 iss >> type;
-                if(type == "PL")
+                if(type == "Player")
                 {
                     float a;
                     Vector4 color;
@@ -64,12 +69,44 @@ void Level::set_level(conststr& path)
                     Vector2 size;
                     Vector2 vel;
 
-                    iss >> pos.x >> pos.y >> a >> rot.x >> rot.y >> rot.z >> size.x >> size.y >> vel.x >> vel.y >> color.x >> color.y >> color.z >> color.w;
+                    iss >> pos.x >> pos.y >> pos.z >> a >> rot.x >> rot.y >> rot.z >> size.x >> size.y >> vel.x >> vel.y >> color.x >> color.y >> color.z >> color.w;
 
-                    pos.x *= 64;
-                    pos.y *= 33.7;
+                    pos.x *= X_SIZE;
+                    pos.y *= Y_SIZE;
 
                     _player.reset(new Player{pos, a, rot, size, vel, color});
+                }
+                else if(type == "Coin")
+                {
+                    float a;
+                    Vector4 color;
+                    Vector3 pos;
+                    Vector3 rot;
+                    Vector2 size;
+                    Vector2 vel;
+
+                    iss >> pos.x >> pos.y >> pos.z >> a >> rot.x >> rot.y >> rot.z >> size.x >> size.y >> vel.x >> vel.y >> color.x >> color.y >> color.z >> color.w;
+
+                    pos.x *= X_SIZE;
+                    pos.y *= Y_SIZE;
+
+                    _coins.emplace_back(Coin{pos, a, rot, size, vel, color});
+                }
+                else if(type == "Booster")
+                {
+                    int dir;
+                    Vector3 pos;
+                    Vector2 size;
+                    Vector4 color;
+                    int border;
+
+                    iss >> dir >> pos.x >> pos.y >> pos.z >> size.x >> size.y >> color.x >> color.y >> color.z >> color.w >> border;
+
+                    pos.x *= X_SIZE;
+                    pos.y *= Y_SIZE;
+                    border *= Y_SIZE;
+
+                    _boosters.emplace_back(Booster{(Direction)dir, pos, size, color, border});
                 }
             }
         }
@@ -97,11 +134,6 @@ uintl16 Level::get_tile(const Vector2& pos) const
     return _data[xoffset + yoffset * _line_length];
 }
 
-
-void Level::set_height(const uintl16& h)
-{
-    Y_SIZE = h / _count_cols;
-}
 
 
 void Level::render(const GLuint& program)
@@ -133,6 +165,26 @@ void Level::process_entities(const GLuint& program)
     for(auto& e : _entities)
     {
         e.update();
+        e.render(program);
+    }
+
+    for(uintf16 i {0}; i < _coins.size(); ++i)
+    {
+        if(_coins[i].collides(*_player.get()))
+        {
+            _coins.erase(_coins.begin());
+        }
+        _coins[i].update();
+        _coins[i].render(program);
+    }
+
+    for(auto& e : _boosters)
+    {
+        if(e.collides(*_player.get()))
+        {
+            _player->no_y_mod = true;
+            _player->_vel.y = -1.0f;
+        } else _player->no_y_mod = false;
         e.render(program);
     }
 }
